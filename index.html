@@ -1,0 +1,1752 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Engagement Invite</title>
+
+<style>
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  height: 800vh;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  overflow-x: hidden;
+  background: #1a0a00;
+}
+
+/* ===== PAGE 1: Ganesha ===== */
+.page-ganesha {
+  position: relative;
+  height: 200vh;
+  width: 100%;
+}
+
+.ganesha-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e07000;
+}
+
+.ganesha-mantra {
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  z-index: 3;
+  font-size: 76px;
+  font-weight: bold;
+  color: #ffd700;
+  letter-spacing: 14px;
+  text-align: center;
+  font-family: 'Georgia', serif;
+  text-shadow:
+    0 0 20px rgba(255, 215, 0, 0.4),
+    2px 2px 10px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  animation: fadeInMantra 1.5s ease-out 0.3s forwards;
+}
+
+.ganesha-img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 40px rgba(255, 180, 50, 0.3));
+}
+
+.ganesha-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(255, 100, 0, 0.3) 100%);
+  pointer-events: none;
+}
+
+.invite-text {
+  position: absolute;
+  bottom: 8%;
+  left: 0;
+  right: 0;
+  text-align: center;
+  z-index: 4;
+  padding: 30px 60px;
+  opacity: 0;
+  animation: fadeInUp 1.2s ease-out 0.5s forwards;
+}
+
+.invite-text h1 {
+  font-size: 52px;
+  font-weight: bold;
+  font-style: italic;
+  color: #ffd700;
+  letter-spacing: 8px;
+  text-transform: uppercase;
+  text-shadow:
+    0 0 30px rgba(255, 215, 0, 0.6),
+    0 0 60px rgba(255, 180, 50, 0.3),
+    3px 3px 15px rgba(0, 0, 0, 0.8);
+  margin-bottom: 0;
+}
+
+.om-left, .om-right {
+  position: absolute;
+  top: 0;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  height: 100%;
+  opacity: 0;
+  animation: fadeInMantra 1.5s ease-out 0.6s forwards;
+}
+
+.om-left {
+  left: 40px;
+}
+
+.om-right {
+  right: 40px;
+}
+
+.om-left span, .om-right span {
+  font-size: 80px;
+  color: #ffd700;
+  font-family: 'Georgia', serif;
+  background: linear-gradient(180deg, #fffacd, #fff176, #ffd700, #ffb300, #ffd700, #fff176);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 20px rgba(255, 230, 50, 1)) drop-shadow(0 0 50px rgba(255, 215, 0, 1)) drop-shadow(0 0 80px rgba(255, 200, 0, 0.8)) drop-shadow(0 0 120px rgba(255, 180, 0, 0.5));
+}
+
+.namaskaram-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 5;
+  font-size: 90px;
+  font-weight: bold;
+  font-style: italic;
+  color: #ffd700;
+  letter-spacing: 10px;
+  font-family: 'Georgia', serif;
+  text-shadow:
+    0 0 20px rgba(255, 215, 0, 0.4),
+    2px 2px 10px rgba(0, 0, 0, 0.8);
+  opacity: 0;
+  pointer-events: none;
+}
+
+@keyframes fadeInUp {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInMantra {
+  0% {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scroll indicator */
+.scroll-hint {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  text-align: center;
+  opacity: 0;
+  animation: fadeInUp 1s ease-out 1.8s forwards;
+}
+
+.scroll-hint span {
+  color: rgba(255, 215, 0, 0.5);
+  font-size: 14px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.scroll-arrow {
+  display: block;
+  margin: 8px auto 0;
+  width: 20px;
+  height: 20px;
+  border-right: 2px solid rgba(255, 215, 0, 0.5);
+  border-bottom: 2px solid rgba(255, 215, 0, 0.5);
+  transform: rotate(45deg);
+  animation: bounce 2s infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: rotate(45deg) translate(0, 0); }
+  50% { transform: rotate(45deg) translate(5px, 5px); }
+}
+
+/* ===== PAGE 2: Palace + Car ===== */
+.page-palace {
+  position: relative;
+  height: 200vh;
+}
+
+.scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+}
+
+.bg {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(1.1);
+}
+
+.car-container {
+  position: absolute;
+  left: 50%;
+  bottom: -100px;
+  transform: translateX(-50%) scale(0.5);
+  transform-origin: center bottom;
+  transition: transform 0.1s linear;
+}
+
+.car {
+  width: 500px;
+}
+
+.shadow {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 300px;
+  height: 40px;
+  background: radial-gradient(circle, rgba(0,0,0,0.4), transparent);
+  filter: blur(10px);
+  opacity: 0.6;
+}
+
+.static-title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: #fff;
+  font-size: 96px;
+  font-weight: bold;
+  letter-spacing: 8px;
+  opacity: 0;
+  text-shadow: 3px 3px 12px rgba(0,0,0,0.7), 0 0 30px rgba(255,255,255,0.2);
+}
+
+.title {
+  position: absolute;
+  top: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  color: #fff;
+  font-size: 70px;
+  font-weight: bold;
+  font-style: italic;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  letter-spacing: 4px;
+  opacity: 0;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4), 2px 2px 10px rgba(0,0,0,0.6);
+  line-height: 1.2;
+  background: linear-gradient(135deg, rgba(139, 69, 19, 0.45), rgba(184, 134, 11, 0.35));
+  border: 2px solid rgba(255, 215, 0, 0.5);
+  border-radius: 12px;
+  padding: 25px 50px;
+  backdrop-filter: blur(4px);
+  max-width: 90vw;
+}
+
+.title .date {
+  font-size: 32px;
+  font-weight: bold;
+  letter-spacing: 3px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.title .muhurtham {
+  font-size: 28px;
+  font-weight: bold;
+  display: inline-block;
+  margin-top: -45px;
+  letter-spacing: 3px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+
+/* ===== PAGE 3: Route Map ===== */
+.page-route {
+  position: relative;
+  height: 200vh;
+}
+
+.route-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  background: linear-gradient(to bottom, #eef6fb, #f7f2ea);
+}
+
+.route-frame {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.route-map {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  user-select: none;
+  -webkit-user-drag: none;
+}
+
+.route-title {
+  position: absolute;
+  top: 4%;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 5;
+  color: #3e3328;
+  text-align: center;
+  letter-spacing: 0.08em;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  text-shadow: 0 1px 0 rgba(255,255,255,0.4);
+}
+
+.route-title .small {
+  font-size: clamp(12px, 1.1vw, 16px);
+  text-transform: uppercase;
+}
+
+.route-title .big {
+  font-size: clamp(26px, 3vw, 48px);
+  margin-top: 6px;
+}
+
+.route-line {
+  position: absolute;
+  left: 26%;
+  top: 61%;
+  width: 52%;
+  height: 10%;
+  border-top: 4px dashed rgba(223, 119, 54, 0.95);
+  border-radius: 999px;
+  transform: rotate(-18deg);
+  transform-origin: left center;
+  opacity: 0;
+  z-index: 2;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.12));
+}
+
+.route-car-anchor {
+  position: absolute;
+  left: 18%;
+  top: 69%;
+  width: 1px;
+  height: 1px;
+  z-index: 4;
+  will-change: left, top;
+}
+
+.route-car-wrap {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: min(35vw, 480px);
+  transform: translate(-50%, -50%) rotate(0deg) scale(0.92);
+  transform-origin: center center;
+  will-change: transform;
+  pointer-events: none;
+}
+
+.route-car-wrap .route-car-img {
+  width: 100%;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  filter: drop-shadow(0 18px 14px rgba(0,0,0,0.28));
+}
+
+.route-car-shadow {
+  position: absolute;
+  left: 50%;
+  top: 78%;
+  width: 72%;
+  height: 16%;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.28), rgba(0,0,0,0.04) 70%, transparent 75%);
+  filter: blur(10px);
+  z-index: -1;
+  opacity: 0.85;
+}
+
+.venue-text {
+  position: absolute;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  font-size: clamp(22px, 2.5vw, 40px);
+  font-weight: bold;
+  color: #3e3328;
+  text-align: center;
+  letter-spacing: 2px;
+  font-family: 'Georgia', serif;
+  text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+  opacity: 0;
+  white-space: nowrap;
+  max-width: 95vw;
+}
+
+.map-pin-link {
+  position: absolute;
+  right: 20%;
+  top: 40%;
+  z-index: 10;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: 0;
+}
+
+.map-pin {
+  font-size: 50px;
+  animation: pinBounce 1.5s ease-in-out infinite;
+}
+
+@keyframes pinBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+
+@media (max-width: 900px) {
+  .route-frame { width: 100vw; }
+  .route-car-wrap { width: min(34vw, 220px); }
+  .route-line {
+    left: 24%;
+    top: 63%;
+    width: 56%;
+  }
+}
+
+/* ===== MOBILE: Pages 1-3 ===== */
+@media (max-width: 768px) {
+  /* PAGE 1: Ganesha */
+  .ganesha-mantra {
+    font-size: 36px;
+    letter-spacing: 6px;
+    top: 30px;
+  }
+
+  .invite-text {
+    padding: 15px 20px;
+    bottom: 5%;
+  }
+
+  .invite-text h1 {
+    font-size: 32px;
+    letter-spacing: 5px;
+  }
+
+  .om-left, .om-right {
+    gap: 20px;
+  }
+
+  .om-left {
+    left: 8px;
+  }
+
+  .om-right {
+    right: 8px;
+  }
+
+  .om-left span, .om-right span {
+    font-size: 40px;
+  }
+
+  .namaskaram-text {
+    font-size: 50px;
+    letter-spacing: 5px;
+  }
+
+  .scroll-hint span {
+    font-size: 12px;
+    letter-spacing: 3px;
+  }
+
+  /* PAGE 2: Palace + Car */
+  .car {
+    width: 300px;
+  }
+
+  .static-title {
+    font-size: 48px;
+    letter-spacing: 5px;
+  }
+
+  .title {
+    font-size: 28px;
+    letter-spacing: 2px;
+    padding: 15px 25px;
+    top: 15px;
+    line-height: 1.3;
+  }
+
+  .title .date {
+    font-size: 16px;
+    letter-spacing: 2px;
+    white-space: nowrap;
+  }
+
+  .title .muhurtham {
+    font-size: 16px;
+    letter-spacing: 2px;
+  }
+
+  .shadow {
+    width: 200px;
+    height: 28px;
+  }
+
+  /* PAGE 3: Route Map */
+  .venue-text {
+    font-size: 18px;
+    letter-spacing: 1px;
+    top: 15px;
+    white-space: normal;
+    padding: 0 15px;
+    line-height: 1.4;
+  }
+
+  .map-pin {
+    font-size: 42px;
+  }
+
+  .map-pin-link {
+    right: 10%;
+    top: 35%;
+  }
+
+  /* PAGE 4: Heart */
+  .heart-container {
+    width: 95vw;
+    height: 86vw;
+  }
+
+  /* PAGE 5: RSVP */
+  .rsvp-postcard {
+    padding: 40px 25px;
+    max-width: 95vw;
+  }
+
+  .rsvp-title {
+    font-size: 36px;
+  }
+
+  .rsvp-subtitle {
+    font-size: 14px;
+  }
+
+  .rsvp-date {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* PAGE 1: Ganesha — small phones */
+  .ganesha-mantra {
+    font-size: 26px;
+    letter-spacing: 4px;
+    top: 20px;
+  }
+
+  .invite-text h1 {
+    font-size: 26px;
+    letter-spacing: 4px;
+  }
+
+  .om-left span, .om-right span {
+    font-size: 32px;
+  }
+
+  .namaskaram-text {
+    font-size: 40px;
+    letter-spacing: 4px;
+  }
+
+  /* PAGE 2: Palace + Car — small phones */
+  .car {
+    width: 240px;
+  }
+
+  .static-title {
+    font-size: 36px;
+    letter-spacing: 3px;
+  }
+
+  .title {
+    font-size: 22px;
+    padding: 12px 18px;
+    letter-spacing: 1px;
+    border-width: 1px;
+  }
+
+  .title .date {
+    font-size: 13px;
+    letter-spacing: 1px;
+    white-space: nowrap;
+  }
+
+  .title .muhurtham {
+    font-size: 14px;
+    letter-spacing: 1px;
+  }
+
+  .shadow {
+    width: 160px;
+    height: 22px;
+  }
+
+  /* PAGE 3: Route Map — small phones */
+  .venue-text {
+    font-size: 15px;
+    padding: 0 10px;
+  }
+
+  .map-pin {
+    font-size: 38px;
+  }
+
+  .route-car-wrap {
+    width: min(45vw, 200px) !important;
+  }
+
+  /* PAGE 4: Heart — small phones */
+  .heart-container {
+    width: 98vw;
+    height: 89vw;
+  }
+
+  .heart-border svg path {
+    stroke-width: 3;
+  }
+
+  /* PAGE 5: RSVP — small phones */
+  .rsvp-postcard {
+    padding: 35px 20px;
+    max-width: 95vw;
+  }
+
+  .rsvp-title {
+    font-size: 30px;
+  }
+
+  .rsvp-subtitle {
+    font-size: 13px;
+  }
+
+  .rsvp-date {
+    font-size: 15px;
+  }
+}
+
+/* ===== PAGE 4: Heart Frame Slideshow ===== */
+.page-heart {
+  position: relative;
+  height: 350vh;
+}
+
+.heart-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #cc2020 0%, #b71c1c 25%, #d32f2f 50%, #b71c1c 75%, #cc2020 100%);
+}
+
+/* Floating hearts background */
+.heart-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255, 100, 120, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 80% 70%, rgba(255, 150, 100, 0.08) 0%, transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+/* Sparkle particles */
+.heart-particles {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.heart-particles span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255, 215, 0, 0.6);
+  border-radius: 50%;
+  animation: sparkleFloat 6s ease-in-out infinite;
+}
+
+.heart-particles span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; animation-duration: 5s; }
+.heart-particles span:nth-child(2) { left: 25%; top: 60%; animation-delay: 1s; animation-duration: 7s; }
+.heart-particles span:nth-child(3) { left: 45%; top: 15%; animation-delay: 2s; animation-duration: 6s; }
+.heart-particles span:nth-child(4) { left: 70%; top: 45%; animation-delay: 0.5s; animation-duration: 8s; }
+.heart-particles span:nth-child(5) { left: 85%; top: 25%; animation-delay: 3s; animation-duration: 5.5s; }
+.heart-particles span:nth-child(6) { left: 15%; top: 80%; animation-delay: 1.5s; animation-duration: 6.5s; }
+.heart-particles span:nth-child(7) { left: 60%; top: 75%; animation-delay: 2.5s; animation-duration: 7.5s; }
+.heart-particles span:nth-child(8) { left: 90%; top: 65%; animation-delay: 0.8s; animation-duration: 5.8s; }
+
+@keyframes sparkleFloat {
+  0%, 100% { opacity: 0; transform: translateY(0) scale(1); }
+  25% { opacity: 1; transform: translateY(-20px) scale(1.5); }
+  50% { opacity: 0.6; transform: translateY(-40px) scale(1); }
+  75% { opacity: 0.8; transform: translateY(-60px) scale(1.3); }
+}
+
+.heart-container {
+  position: relative;
+  width: 850px;
+  height: 772px;
+  max-width: 95vw;
+  max-height: 86vw;
+  filter: drop-shadow(0 0 30px rgba(255, 100, 120, 0.3)) drop-shadow(0 0 60px rgba(255, 50, 80, 0.15));
+}
+
+.heart-clip {
+  width: 100%;
+  height: 100%;
+  -webkit-clip-path: url(#heartClip);
+  clip-path: url(#heartClip);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Golden border using an SVG overlay */
+.heart-border {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 5;
+  overflow: hidden;
+}
+
+.heart-border svg {
+  width: 100%;
+  height: 100%;
+}
+
+.heart-border svg path {
+  fill: none;
+  stroke: #ff85a2;
+  stroke-width: 4;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px rgba(255, 105, 140, 0.5));
+}
+
+.slideshow {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  inset: 0;
+}
+
+.slideshow img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center center;
+  position: absolute;
+  opacity: 0;
+  transition: opacity 1.2s ease-in-out;
+  background: #f8d7e0;
+  z-index: 1;
+}
+
+.slideshow img.active {
+  opacity: 1;
+  z-index: 2;
+}
+
+/* Gentle pulse on the heart */
+.heart-container {
+  animation: heartPulse 3s ease-in-out infinite;
+}
+
+@keyframes heartPulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.03); }
+}
+
+/* Sparks effect inside heart */
+.heart-sparks {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.heart-sparks .spark {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 0 6px 2px rgba(255, 255, 255, 0.8), 0 0 12px 4px rgba(255, 200, 50, 0.5);
+  opacity: 0;
+  animation: sparkRise 3s ease-out infinite;
+}
+
+.spark:nth-child(1)  { left: 15%; bottom: 10%; animation-delay: 0s; animation-duration: 2.5s; }
+.spark:nth-child(2)  { left: 30%; bottom: 5%;  animation-delay: 0.4s; animation-duration: 3s; }
+.spark:nth-child(3)  { left: 50%; bottom: 8%;  animation-delay: 0.8s; animation-duration: 2.8s; }
+.spark:nth-child(4)  { left: 65%; bottom: 12%; animation-delay: 1.2s; animation-duration: 3.2s; }
+.spark:nth-child(5)  { left: 80%; bottom: 6%;  animation-delay: 0.2s; animation-duration: 2.6s; }
+.spark:nth-child(6)  { left: 22%; bottom: 15%; animation-delay: 1.6s; animation-duration: 3.1s; }
+.spark:nth-child(7)  { left: 42%; bottom: 3%;  animation-delay: 0.6s; animation-duration: 2.7s; }
+.spark:nth-child(8)  { left: 72%; bottom: 10%; animation-delay: 1s;   animation-duration: 3.3s; }
+.spark:nth-child(9)  { left: 55%; bottom: 7%;  animation-delay: 1.8s; animation-duration: 2.4s; }
+.spark:nth-child(10) { left: 38%; bottom: 12%; animation-delay: 2.2s; animation-duration: 2.9s; }
+.spark:nth-child(11) { left: 60%; bottom: 4%;  animation-delay: 0.3s; animation-duration: 3.4s; }
+.spark:nth-child(12) { left: 48%; bottom: 9%;  animation-delay: 1.4s; animation-duration: 2.3s; }
+
+@keyframes sparkRise {
+  0% {
+    opacity: 0;
+    transform: translateY(0) scale(0.5);
+  }
+  10% {
+    opacity: 1;
+    transform: translateY(-10px) scale(1);
+  }
+  50% {
+    opacity: 0.8;
+    transform: translateY(-120px) scale(0.8);
+  }
+  80% {
+    opacity: 0.3;
+    transform: translateY(-220px) scale(0.4);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-300px) scale(0.2);
+  }
+}
+
+/* Name text beside heart */
+.heart-name {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: clamp(28px, 4vw, 48px);
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  font-style: italic;
+  letter-spacing: 8px;
+  color: #ffd700;
+  text-shadow: 0 0 15px rgba(255, 215, 0, 0.4), 2px 2px 8px rgba(0,0,0,0.3);
+  z-index: 6;
+}
+
+.heart-name-left {
+  left: 5%;
+}
+
+.heart-name-right {
+  right: 2%;
+}
+
+@media (max-width: 768px) {
+  .heart-name {
+    font-size: 22px;
+    letter-spacing: 8px;
+    top: auto;
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+  }
+  .heart-name-left { top: 12%; }
+  .heart-name-right { bottom: 2%; top: auto; }
+}
+
+@media (max-width: 480px) {
+  .heart-name {
+    font-size: 16px;
+    letter-spacing: 5px;
+  }
+  .heart-name-left { top: 10%; }
+  .heart-name-right { bottom: 1%; }
+}
+
+/* ===== PAGE 5: RSVP Postcard ===== */
+.page-rsvp {
+  position: relative;
+  height: 100vh;
+}
+
+.rsvp-scene {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f5d5e0 0%, #f0c4d4 30%, #f2d0de 60%, #f8dce8 100%);
+}
+
+/* Floral texture overlay */
+.rsvp-scene::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 15% 25%, rgba(255,255,255,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 85% 75%, rgba(255,255,255,0.06) 0%, transparent 40%),
+    radial-gradient(circle at 50% 50%, rgba(180,120,140,0.3) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Subtle pattern */
+.rsvp-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.08;
+  background-image:
+    radial-gradient(circle at 20% 20%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 60% 40%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 80% 80%, #fff 1px, transparent 1px),
+    radial-gradient(circle at 40% 70%, #fff 1px, transparent 1px);
+  background-size: 120px 120px, 150px 150px, 100px 100px, 180px 180px;
+  pointer-events: none;
+}
+
+/* Floating petals */
+.rsvp-petals {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rsvp-petals .petal {
+  position: absolute;
+  font-size: 24px;
+  opacity: 0;
+  animation: petalDrift 8s ease-in-out infinite;
+}
+
+.petal:nth-child(1) { left: 5%; animation-delay: 0s; }
+.petal:nth-child(2) { left: 20%; animation-delay: 1.5s; }
+.petal:nth-child(3) { left: 35%; animation-delay: 3s; }
+.petal:nth-child(4) { left: 55%; animation-delay: 0.8s; }
+.petal:nth-child(5) { left: 70%; animation-delay: 2.2s; }
+.petal:nth-child(6) { left: 85%; animation-delay: 4s; }
+.petal:nth-child(7) { left: 45%; animation-delay: 5s; }
+.petal:nth-child(8) { left: 92%; animation-delay: 1s; }
+
+@keyframes petalDrift {
+  0% { opacity: 0; transform: translateY(-20px) rotate(0deg); top: -5%; }
+  10% { opacity: 0.7; }
+  90% { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(0) rotate(360deg); top: 105%; }
+}
+
+/* The postcard itself */
+.rsvp-postcard {
+  position: relative;
+  width: 600px;
+  max-width: 90vw;
+  background: linear-gradient(145deg, #faf3e8, #f5e6d3, #faf3e8);
+  border-radius: 12px;
+  padding: 50px 40px;
+  box-shadow:
+    0 20px 60px rgba(0,0,0,0.25),
+    0 0 0 3px rgba(180,130,90,0.3),
+    inset 0 0 80px rgba(200,170,130,0.15);
+  text-align: center;
+  z-index: 5;
+  /* Start off-screen to the right and rotated */
+  transform: translateX(120vw) rotate(15deg);
+  opacity: 0;
+  transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.8s ease;
+}
+
+.rsvp-postcard.fly-in {
+  transform: translateX(0) rotate(0deg);
+  opacity: 1;
+}
+
+/* Postcard stamp */
+.rsvp-stamp {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  width: 70px;
+  height: 85px;
+  border: 3px dashed rgba(180,100,80,0.4);
+  border-radius: 4px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  background: rgba(255,240,220,0.5);
+}
+
+.rsvp-stamp-text {
+  font-size: 8px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: rgba(150,80,60,0.6);
+  margin-top: 4px;
+}
+
+/* Decorative corner flourishes */
+.rsvp-postcard .corner {
+  position: absolute;
+  width: 60px;
+  height: 60px;
+  opacity: 0.25;
+}
+
+.corner-tl {
+  top: 10px; left: 10px;
+  border-top: 3px solid #b8860b;
+  border-left: 3px solid #b8860b;
+  border-radius: 8px 0 0 0;
+}
+
+.corner-tr {
+  top: 10px; right: 10px;
+  border-top: 3px solid #b8860b;
+  border-right: 3px solid #b8860b;
+  border-radius: 0 8px 0 0;
+}
+
+.corner-bl {
+  bottom: 10px; left: 10px;
+  border-bottom: 3px solid #b8860b;
+  border-left: 3px solid #b8860b;
+  border-radius: 0 0 0 8px;
+}
+
+.corner-br {
+  bottom: 10px; right: 10px;
+  border-bottom: 3px solid #b8860b;
+  border-right: 3px solid #b8860b;
+  border-radius: 0 0 8px 0;
+}
+
+/* Divider line */
+.rsvp-divider {
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #b8860b, transparent);
+  margin: 15px auto;
+}
+
+.rsvp-ornament {
+  font-size: 30px;
+  color: #b8860b;
+  opacity: 0.6;
+  margin-bottom: 10px;
+  letter-spacing: 8px;
+}
+
+.rsvp-please {
+  font-size: clamp(18px, 2.5vw, 26px);
+  letter-spacing: 12px;
+  text-transform: uppercase;
+  color: #8b6914;
+  font-family: 'Georgia', serif;
+  margin-bottom: 5px;
+  opacity: 0;
+  transform: translateY(15px);
+  transition: opacity 0.6s ease 1.2s, transform 0.6s ease 1.2s;
+}
+
+.rsvp-postcard.fly-in .rsvp-please {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.rsvp-title {
+  font-size: clamp(52px, 8vw, 80px);
+  font-weight: bold;
+  font-family: 'Georgia', serif;
+  color: #8b4513;
+  letter-spacing: 10px;
+  text-shadow: 2px 2px 4px rgba(139,69,19,0.2);
+  margin-bottom: 10px;
+  opacity: 0;
+  transform: scale(0.8);
+  transition: opacity 0.8s ease 1.5s, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 1.5s;
+}
+
+.rsvp-postcard.fly-in .rsvp-title {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.rsvp-subtitle {
+  font-size: clamp(13px, 1.5vw, 17px);
+  color: #a0795a;
+  letter-spacing: 4px;
+  font-style: italic;
+  margin-top: 5px;
+  opacity: 0;
+  transition: opacity 0.6s ease 2s;
+}
+
+.rsvp-postcard.fly-in .rsvp-subtitle {
+  opacity: 1;
+}
+
+.rsvp-date {
+  font-size: clamp(14px, 1.5vw, 18px);
+  color: #8b6914;
+  letter-spacing: 3px;
+  margin-top: 18px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.6s ease 2.2s;
+}
+
+.rsvp-postcard.fly-in .rsvp-date {
+  opacity: 1;
+}
+
+/* Postcard bottom lines (like address lines) */
+.rsvp-lines {
+  margin-top: 25px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+}
+
+.rsvp-lines .line {
+  width: 70%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent 5%, rgba(180,130,90,0.3) 20%, rgba(180,130,90,0.3) 80%, transparent 95%);
+}
+
+/* Shimmer effect on the postcard */
+.rsvp-shimmer {
+  position: absolute;
+  inset: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.rsvp-shimmer::after {
+  content: "";
+  position: absolute;
+  top: -100%;
+  left: -100%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(
+    105deg,
+    transparent 40%,
+    rgba(255, 255, 255, 0.15) 45%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 55%,
+    transparent 60%
+  );
+  animation: postcardShimmer 4s ease-in-out infinite 2.5s;
+}
+
+@keyframes postcardShimmer {
+  0% { transform: translateX(-50%) rotate(25deg); }
+  100% { transform: translateX(250%) rotate(25deg); }
+}
+
+/* Gentle float animation after landing */
+.rsvp-postcard.fly-in {
+  animation: postcardFloat 4s ease-in-out 2.5s infinite;
+}
+
+@keyframes postcardFloat {
+  0%, 100% { transform: translateX(0) rotate(0deg) translateY(0); }
+  50% { transform: translateX(0) rotate(0.5deg) translateY(-8px); }
+}
+
+@media (max-width: 600px) {
+  .rsvp-postcard {
+    padding: 35px 25px;
+  }
+  .rsvp-stamp {
+    width: 50px;
+    height: 65px;
+    top: 12px;
+    right: 15px;
+  }
+  .rsvp-stamp-text { font-size: 6px; }
+  .corner { width: 40px; height: 40px; }
+}
+
+/* ===== Entry Overlay ===== */
+#entryOverlay {
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  z-index: 10000;
+  background: #e07000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease;
+}
+#entryOverlay.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.invite-card {
+  width: 768px;
+  padding: 180px 96px;
+  border: 2px solid #ffd700;
+  border-radius: 16px;
+  background: linear-gradient(145deg, rgba(25, 10, 60, 0.95), rgba(15, 5, 45, 0.98));
+  box-shadow:
+    0 0 30px rgba(255, 215, 0, 0.15),
+    0 0 60px rgba(255, 180, 50, 0.08),
+    inset 0 0 30px rgba(255, 215, 0, 0.05);
+  text-align: center;
+  font-family: 'Georgia', serif;
+  animation: cardGlow 2.5s ease-in-out infinite alternate;
+  transition: transform 0.6s ease, opacity 0.6s ease;
+}
+.invite-card.fly-away {
+  transform: scale(1.3) translateY(-60px);
+  opacity: 0;
+}
+
+@keyframes cardGlow {
+  0%   { box-shadow: 0 0 30px rgba(255, 215, 0, 0.15), 0 0 60px rgba(255, 180, 50, 0.08), inset 0 0 30px rgba(255, 215, 0, 0.05); }
+  100% { box-shadow: 0 0 40px rgba(255, 215, 0, 0.3), 0 0 80px rgba(255, 180, 50, 0.15), inset 0 0 40px rgba(255, 215, 0, 0.1); }
+}
+
+.invite-card .card-ornament {
+  font-size: 48px;
+  color: #ffd700;
+  margin-bottom: 16px;
+  letter-spacing: 8px;
+}
+
+.invite-card h2 {
+  font-size: 55px;
+  font-style: italic;
+  color: #ffd700;
+  margin-bottom: 30px;
+  letter-spacing: 4px;
+  text-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+}
+
+.invite-card .card-names {
+  font-size: 34px;
+  color: #d4a050;
+  margin-bottom: 50px;
+  letter-spacing: 3px;
+}
+
+.invite-card .open-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  border: 1.5px solid #ffd700;
+  border-radius: 30px;
+  background: transparent;
+  color: #ffd700;
+  font-family: 'Georgia', serif;
+  font-size: 28px;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: background 0.3s, transform 0.2s, box-shadow 0.3s;
+}
+.invite-card .open-btn:hover {
+  background: rgba(255, 215, 0, 0.15);
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.3);
+}
+
+body.no-scroll {
+  overflow: hidden;
+}
+
+/* ===== Music Play/Pause Button ===== */
+.music-btn {
+  position: fixed;
+  top: 16px;
+  right: 3.5%;
+  z-index: 9999;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 2px solid #ffd700;
+  background: rgba(26, 10, 0, 0.7);
+  backdrop-filter: blur(6px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.2s;
+}
+.music-btn:hover {
+  background: rgba(255, 215, 0, 0.2);
+  transform: scale(1.1);
+}
+.music-btn svg {
+  width: 20px;
+  height: 20px;
+  fill: #ffd700;
+}
+.music-btn .icon-pause { display: none; }
+.music-btn.playing .icon-play  { display: none; }
+.music-btn.playing .icon-pause { display: block; }
+
+</style>
+</head>
+
+<body class="no-scroll">
+
+<!-- Entry Overlay -->
+<div id="entryOverlay">
+  <div class="invite-card" id="inviteCard">
+    <div class="card-ornament">✦ ✦ ✦</div>
+    <h2>You're Invited</h2>
+    <div class="card-names">HARI & ADHITHI</div>
+    <button class="open-btn" onclick="openInvitation()">Open Invitation</button>
+  </div>
+</div>
+
+<!-- Background Music -->
+<audio id="bgMusic" loop preload="auto">
+  <source src="assets/audio/Khuda Jane.mp3" type="audio/mpeg">
+</audio>
+
+<button class="music-btn" id="musicBtn" aria-label="Play/Pause music" onclick="toggleMusic()">
+  <svg class="icon-play" viewBox="0 0 24 24"><polygon points="6,3 20,12 6,21"/></svg>
+  <svg class="icon-pause" viewBox="0 0 24 24"><rect x="5" y="3" width="4" height="18"/><rect x="15" y="3" width="4" height="18"/></svg>
+</button>
+
+<script>
+// Always start from top on load/refresh
+window.addEventListener('beforeunload', function() { window.scrollTo(0, 0); });
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+function toggleMusic() {
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+  if (audio.paused) {
+    audio.play();
+    btn.classList.add('playing');
+  } else {
+    audio.pause();
+    btn.classList.remove('playing');
+  }
+}
+
+function openInvitation() {
+  const card = document.getElementById('inviteCard');
+  const overlay = document.getElementById('entryOverlay');
+  const audio = document.getElementById('bgMusic');
+  const btn = document.getElementById('musicBtn');
+
+  // Animate card flying away
+  card.classList.add('fly-away');
+
+  // After card animation, fade out overlay and start music
+  setTimeout(() => {
+    overlay.classList.add('fade-out');
+    document.body.classList.remove('no-scroll');
+    audio.play().then(() => {
+      btn.classList.add('playing');
+    }).catch(() => {});
+  }, 400);
+
+  // Remove overlay from DOM
+  setTimeout(() => {
+    overlay.remove();
+  }, 1200);
+}
+</script>
+
+<!-- PAGE 1: Ganesha with Engagement Invite -->
+<div class="page-ganesha">
+  <div class="ganesha-sticky" id="ganeshaSection">
+    <div class="ganesha-mantra" id="ganeshaMantra">ॐ गणेशाय नमः</div>
+    <img src="assets/images/Ganesha.png" class="ganesha-img" id="ganeshaImg" />
+    <div class="ganesha-overlay"></div>
+
+    <div class="om-left" id="omLeft">
+      <span>ॐ</span><span>ॐ</span><span>ॐ</span>
+    </div>
+    <div class="om-right" id="omRight">
+      <span>ॐ</span><span>ॐ</span><span>ॐ</span>
+    </div>
+
+    <div class="invite-text" id="inviteText">
+      <h1>Engagement Invite</h1>
+    </div>
+
+    <div class="scroll-hint" id="scrollHint">
+      <span>Scroll</span>
+      <div class="scroll-arrow"></div>
+    </div>
+
+    <div class="namaskaram-text" id="namaskaramText">Namaskaram</div>
+
+    <!-- Invisible spacer to keep invite text at bottom -->
+  </div>
+</div>
+
+<!-- PAGE 2: Palace + Car Animation -->
+<div class="page-palace" id="palaceSection">
+  <div class="scene">
+    <img src="assets/images/palace.png" class="bg" />
+
+    <div class="static-title" id="staticTitle">
+      #HariKiAdhithi
+    </div>
+
+    <div class="title" id="title">
+      12th July 2026<br>
+      <span class="date">Muhurtham 10:30 AM - 12:30 PM</span>
+
+    </div>
+
+    <div class="shadow" id="shadow"></div>
+
+    <div class="car-container" id="car">
+      <img src="assets/images/car.png" class="car"/>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3: Route Map Animation -->
+<div class="page-route" id="routeSection">
+  <div class="route-scene">
+    <div class="venue-text" id="venueText">Sri Kapaleeswarar Hall, Mylapore, Chennai</div>
+
+    <a class="map-pin-link" id="mapPinLink" href="https://maps.app.goo.gl/iYf7WdfySGiwJvHf8" target="_blank">
+      <div class="map-pin">📍</div>
+    </a>
+
+    <div class="route-frame">
+      <img class="route-map" src="assets/images/route-map.png" alt="Route map" />
+
+
+      <div class="route-car-anchor" id="routeCarAnchor">
+        <div class="route-car-wrap" id="routeCarWrap">
+          <div class="route-car-shadow" id="routeCarShadow"></div>
+          <img class="route-car-img" src="assets/images/Map_car.png" alt="Car" />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4: Heart Frame Slideshow -->
+<div class="page-heart" id="heartSection">
+  <div class="heart-scene">
+    <div class="heart-particles">
+      <span></span><span></span><span></span><span></span>
+      <span></span><span></span><span></span><span></span>
+    </div>
+
+    <div class="heart-name heart-name-left">HARI</div>
+    <div class="heart-name heart-name-right">ADHITHI</div>
+
+    <div class="heart-container">
+      <svg width="0" height="0" style="position:absolute">
+        <defs>
+          <clipPath id="heartClip" clipPathUnits="objectBoundingBox">
+            <path d="M0.5 0.88 C0.5 0.88 0.055 0.63 0.055 0.38 C0.055 0.19 0.2 0.06 0.345 0.06 C0.415 0.06 0.473 0.11 0.5 0.17 C0.527 0.11 0.585 0.06 0.655 0.06 C0.8 0.06 0.945 0.19 0.945 0.38 C0.945 0.63 0.5 0.88 0.5 0.88Z"/>
+          </clipPath>
+        </defs>
+      </svg>
+      <div class="heart-clip">
+        <div class="slideshow">
+          <img src="assets/images/photos/photo1.jpg">
+          <img src="assets/images/photos/photo2.jpg">
+          <img src="assets/images/photos/photo3.jpg">
+          <img src="assets/images/photos/photo4.jpg">
+          <img src="assets/images/photos/photo5.jpg">
+        </div>
+        <div class="heart-sparks">
+          <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+          <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+          <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+          <div class="spark"></div><div class="spark"></div><div class="spark"></div>
+        </div>
+      </div>
+      <div class="heart-border">
+        <svg viewBox="0 0 100 100" preserveAspectRatio="none">
+          <path d="M50 88 C50 88 5.5 63 5.5 38 C5.5 19 20 6 34.5 6 C41.5 6 47.3 11 50 17 C52.7 11 58.5 6 65.5 6 C80 6 94.5 19 94.5 38 C94.5 63 50 88 50 88Z"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 5: RSVP Postcard -->
+<div class="page-rsvp" id="rsvpSection">
+  <div class="rsvp-scene">
+    <div class="rsvp-petals">
+      <div class="petal">🌸</div>
+      <div class="petal">🌺</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌺</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌺</div>
+      <div class="petal">🌸</div>
+      <div class="petal">🌺</div>
+    </div>
+
+    <div class="rsvp-postcard" id="rsvpPostcard">
+      <div class="corner corner-tl"></div>
+      <div class="corner corner-tr"></div>
+      <div class="corner corner-bl"></div>
+      <div class="corner corner-br"></div>
+
+      <div class="rsvp-stamp">
+        <span>💌</span>
+        <div class="rsvp-stamp-text">With Love</div>
+      </div>
+
+      <div class="rsvp-ornament">✦ ✦ ✦</div>
+      <div class="rsvp-please">Please</div>
+      <div class="rsvp-title">RSVP</div>
+      <div class="rsvp-divider"></div>
+      <div class="rsvp-subtitle">We would love your presence on this special occasion</div>
+      <div class="rsvp-date">12th July 2026</div>
+
+      <div class="rsvp-lines">
+        <div class="line"></div>
+        <div class="line"></div>
+        <div class="line"></div>
+      </div>
+
+      <div class="rsvp-shimmer"></div>
+    </div>
+  </div>
+</div>
+
+
+<script>
+const car = document.getElementById("car");
+const shadow = document.getElementById("shadow");
+const title = document.getElementById("title");
+const staticTitle = document.getElementById("staticTitle");
+const ganeshaImg = document.getElementById("ganeshaImg");
+const ganeshaMantra = document.getElementById("ganeshaMantra");
+const inviteText = document.getElementById("inviteText");
+const scrollHint = document.getElementById("scrollHint");
+const omLeft = document.getElementById("omLeft");
+const omRight = document.getElementById("omRight");
+const namaskaramText = document.getElementById("namaskaramText");
+const palaceSection = document.getElementById("palaceSection");
+const routeSection = document.getElementById("routeSection");
+const routeCarAnchor = document.getElementById("routeCarAnchor");
+const routeCarWrap = document.getElementById("routeCarWrap");
+const routeCarShadow = document.getElementById("routeCarShadow");
+const venueText = document.getElementById("venueText");
+const mapPinLink = document.getElementById("mapPinLink");
+const rsvpPostcard = document.getElementById("rsvpPostcard");
+const rsvpSection = document.getElementById("rsvpSection");
+const heartSection = document.getElementById("heartSection");
+const heartSlides = document.querySelectorAll(".slideshow img");
+if (heartSlides.length > 0) heartSlides[0].classList.add("active");
+
+window.addEventListener("scroll", () => {
+  const scroll = window.scrollY;
+  const vh = window.innerHeight;
+
+  // === PAGE 1: Ganesha fade-out on scroll ===
+  const ganeshaFadeStart = vh * 0.3;
+  const ganeshaFadeEnd = vh * 1.0;
+
+  if (scroll < ganeshaFadeEnd) {
+    let fadeProgress = Math.max(0, (scroll - ganeshaFadeStart) / (ganeshaFadeEnd - ganeshaFadeStart));
+    fadeProgress = Math.min(fadeProgress, 1);
+
+    // Fade out text and image
+    inviteText.style.opacity = 1 - fadeProgress;
+    ganeshaMantra.style.opacity = 1 - fadeProgress;
+    scrollHint.style.opacity = 1 - fadeProgress;
+    omLeft.style.opacity = 1 - fadeProgress;
+    omRight.style.opacity = 1 - fadeProgress;
+
+    // Namaskaram fades in as Ganesha fades out
+    if (fadeProgress > 0.5) {
+      const namaskaramProgress = (fadeProgress - 0.5) * 2;
+      namaskaramText.style.opacity = namaskaramProgress;
+      namaskaramText.style.transform = `translate(-50%, ${-50 + (1 - namaskaramProgress) * 10}%)`;
+    } else {
+      namaskaramText.style.opacity = 0;
+    }
+    ganeshaImg.style.transform = `scale(${1 + fadeProgress * 0.15})`;
+    ganeshaImg.style.opacity = 0.85 - fadeProgress * 0.85;
+  }
+
+  // === PAGE 2: Palace + Car ===
+  const palaceOffset = palaceSection.offsetTop;
+  const palaceScroll = scroll - palaceOffset;
+
+  if (palaceScroll > 0) {
+    const maxScroll = vh * 1.0;
+    let progress = palaceScroll / maxScroll;
+    progress = Math.min(progress, 1);
+
+    const ease = 1 - Math.pow(1 - progress, 3);
+
+    // Car movement — rises to 80% up the viewport then stays
+    const carTravel = Math.min(ease, 0.7);
+    const translateY = 58 - carTravel * (vh * 0.35);
+    const scale = 0.5 + carTravel * 0.65;
+    car.style.transform =
+      `translateX(-50%) translateY(${translateY}px) scale(${scale})`;
+
+    // Shadow
+    shadow.style.transform =
+      `translateX(-50%) scale(${0.7 + carTravel * 0.6})`;
+    shadow.style.opacity = 0.4 + carTravel * 0.4;
+
+    // "#HariKiAdhithi" fades in then fades out
+    if (progress < 0.1) {
+      staticTitle.style.opacity = progress / 0.1;
+    } else if (progress < 0.35) {
+      staticTitle.style.opacity = 1;
+    } else {
+      staticTitle.style.opacity = Math.max(0, 1 - (progress - 0.35) / 0.15);
+    }
+
+    // "Engagement" text fades in
+    if (progress > 0.5) {
+      title.style.opacity = (progress - 0.5) * 2;
+    } else {
+      title.style.opacity = 0;
+    }
+  } else {
+    // Reset palace elements when above palace section
+    staticTitle.style.opacity = 0;
+    title.style.opacity = 0;
+  }
+
+  // === PAGE 3: Route Map ===
+  const routeOffset = routeSection.offsetTop;
+  const routeScroll = scroll - routeOffset;
+
+  if (routeScroll > 0) {
+    const routeMaxScroll = vh * 1.0;
+    let rp = Math.max(0, Math.min(routeScroll / routeMaxScroll, 1));
+    const rEase = 1 - Math.pow(1 - rp, 3);
+
+    const startX = 18, startY = 69, endX = 65, endY = 45;
+    const rx = startX + (endX - startX) * rEase;
+    const ry = startY + (endY - startY) * rEase;
+    const wobbleY = Math.sin(rp * Math.PI * 8) * (1 - rp) * 1.1;
+    const wobbleRot = Math.sin(rp * Math.PI * 8) * (1 - rp) * 1.4;
+    const rScale = 0.92 + rEase * 0.08;
+
+    routeCarAnchor.style.left = `${rx}%`;
+    routeCarAnchor.style.top = `${ry + wobbleY}%`;
+    routeCarWrap.style.transform = `translate(-50%, -50%) rotate(0deg) scale(${rScale.toFixed(3)})`;
+    routeCarShadow.style.opacity = (0.8 + rEase * 0.15).toFixed(2);
+    // Venue text and pin fade in when car is near the end
+    if (rp > 0.3) {
+      const venueProgress = Math.min((rp - 0.3) / 0.3, 1);
+      venueText.style.opacity = venueProgress;
+      mapPinLink.style.opacity = venueProgress;
+    } else {
+      venueText.style.opacity = 0;
+      mapPinLink.style.opacity = 0;
+    }
+  }
+
+  // === PAGE 4: Heart slideshow on scroll ===
+  const heartOffset = heartSection.offsetTop;
+  const heartScroll = scroll - heartOffset;
+
+  if (heartScroll >= 0) {
+    const slideCount = heartSlides.length;
+    const scrollPerSlide = (heartSection.offsetHeight - vh) / slideCount;
+    const activeIndex = Math.min(Math.floor(heartScroll / scrollPerSlide), slideCount - 1);
+    heartSlides.forEach((img, i) => {
+      img.classList.toggle("active", i === activeIndex);
+    });
+  }
+
+  // === PAGE 5: RSVP Postcard fly-in ===
+  const rsvpOffset = rsvpSection.offsetTop;
+  const rsvpScroll = scroll - rsvpOffset + vh;
+
+  if (rsvpScroll > vh * 0.3) {
+    rsvpPostcard.classList.add("fly-in");
+  }
+});
+</script>
+
+</body>
+</html>
